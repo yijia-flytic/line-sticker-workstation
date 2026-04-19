@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
 
 // We use the Anthropic API via the built-in artifact capability
 // But for the deployed app, we call Claude API directly
