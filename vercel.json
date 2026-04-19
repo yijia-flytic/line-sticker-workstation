@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "regions": ["hkg1"],
+  "regions": ["iad1"],
   "functions": {
     "src/app/api/generate/route.ts": {
       "maxDuration": 60
