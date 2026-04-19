@@ -6,7 +6,7 @@
       "maxDuration": 60
     },
     "src/app/api/packs/download/route.ts": {
-      "maxDuration": 30
+      "maxDuration": 60
     }
   }
 }
