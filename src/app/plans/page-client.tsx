@@ -82,7 +82,7 @@ export default function PlansPage() {
         });
         if (editing.items?.length) {
           await db.planItems.bulkCreate(
-            editing.items.map((item, i) => ({ ...item, plan_id: plan.id, sort_order: i }))
+            editing.items.map(({ id, ...rest }, i) => ({ ...rest, plan_id: plan.id, sort_order: i }))
           );
         }
         toast.success('規劃已建立！');
@@ -97,7 +97,7 @@ export default function PlansPage() {
         await db.planItems.deleteByPlan(editing.id!);
         if (editing.items?.length) {
           await db.planItems.bulkCreate(
-            editing.items.map((item, i) => ({ ...item, plan_id: editing.id!, sort_order: i, id: undefined }))
+            editing.items.map(({ id, ...rest }, i) => ({ ...rest, plan_id: editing.id!, sort_order: i }))
           );
         }
         toast.success('規劃已更新！');
