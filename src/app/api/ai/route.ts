@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // We use the Anthropic API via the built-in artifact capability
-// But for the deployed app, we call Claude API directly
+// But for the deployed app, we call Claude API directly remove
 
 export async function POST(req: NextRequest) {
   try {
