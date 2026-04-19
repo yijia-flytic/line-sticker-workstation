@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap');
+
+:root {
+  --coral: #FF6B6B;
+  --peach: #FF8E53;
+  --bg: #FFF5F3;
+}
+
+body {
+  font-family: 'M PLUS Rounded 1c', -apple-system, sans-serif;
+  background: linear-gradient(160deg, #FFF5F5 0%, #FFF0E6 30%, #F0F4FF 100%);
+  min-height: 100vh;
+}
+
+/* Checkerboard for transparency preview */
+.checkerboard {
+  background: repeating-conic-gradient(#F0F0F0 0% 25%, #FFF 0% 50%) 50% / 16px 16px;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Progress bar animation */
+@keyframes progress-shine {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+.progress-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: progress-shine 1.5s infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #FFD4D4; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #FF6B6B; }

@@ -1,0 +1,12 @@
+{
+  "framework": "nextjs",
+  "regions": ["hkg1"],
+  "functions": {
+    "src/app/api/generate/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/packs/download/route.ts": {
+      "maxDuration": 30
+    }
+  }
+}
