@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { db, Plan, PlanItem, Character } from '@/lib/supabase';
 
-const EMOJI_MAP: Record<string, string> = {'企鵝':'🐧','小雞':'🐥','小鴨':'🦆','柴犬':'🐕','貓咪':'🐱','兔子':'🐰','熊':'🐻','倉鼠':'🐹','水獺':'🦦','海豹':'🦭','恐龍':'🦕','狐狸':'🦊'};
+const EMOJI_MAP: Record<string, string> = {'企鵝':'🐧','小雞':'🐥','小鴨':'🦆','柴犬':'🐕','貓咪':'🐱','兔子':'🐰','熊':'🐻','倉鼠':'🐹','水獺':'🦦','海豹':'🦭','恐龍':'🦕','狐狸':'🦊','無尾熊':'🐨'};
 const COUNTS = [8, 16, 24, 32, 40];
 
 export default function PlansPage() {

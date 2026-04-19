@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { db, Character } from '@/lib/supabase';
 
-const ANIMAL_TYPES = ['企鵝','小雞','小鴨','柴犬','貓咪','兔子','熊','倉鼠','水獺','海豹','恐龍','狐狸'];
+const ANIMAL_TYPES = ['企鵝','小雞','小鴨','柴犬','貓咪','兔子','熊','倉鼠','水獺','海豹','恐龍','狐狸','無尾熊'];
 const STYLE_PRESETS = ['圓潤可愛','伸縮變形','極簡線條','軟萌Q版','塗鴉手繪','黏土風格'];
-const EMOJI_MAP: Record<string, string> = {'企鵝':'🐧','小雞':'🐥','小鴨':'🦆','柴犬':'🐕','貓咪':'🐱','兔子':'🐰','熊':'🐻','倉鼠':'🐹','水獺':'🦦','海豹':'🦭','恐龍':'🦕','狐狸':'🦊'};
+const EMOJI_MAP: Record<string, string> = {'企鵝':'🐧','小雞':'🐥','小鴨':'🦆','柴犬':'🐕','貓咪':'🐱','兔子':'🐰','熊':'🐻','倉鼠':'🐹','水獺':'🦦','海豹':'🦭','恐龍':'🦕','狐狸':'🦊','無尾熊':'🐨'};
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
