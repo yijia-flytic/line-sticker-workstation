@@ -14,6 +14,7 @@ export default function CharactersPage() {
   const [isNew, setIsNew] = useState(false);
   const [loading, setLoading] = useState(true);
   const [aiLoading, setAiLoading] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -88,39 +89,49 @@ export default function CharactersPage() {
         <div className="bg-white rounded-2xl p-5 mb-5 border border-coral-100 shadow-sm animate-fadeIn">
           <h3 className="text-base font-extrabold mb-4">{isNew ? '✨ 建立新角色' : '✏️ 編輯角色'}</h3>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-2">
             <Field label="角色名稱 *" value={editing.name||''} onChange={v => setEditing({...editing, name:v})} placeholder="小圓企" />
-            <Select label="動物類型" value={editing.type||'企鵝'} options={ANIMAL_TYPES} onChange={v => setEditing({...editing, type:v})} />
+            <Select label="動物類型 *" value={editing.type||'企鵝'} options={ANIMAL_TYPES} onChange={v => setEditing({...editing, type:v})} />
             <Select label="角色定位" value={editing.role||'主角'} options={['主角','配角','路人']} onChange={v => setEditing({...editing, role:v})} />
-            <Select label="畫風" value={editing.style||'圓潤可愛'} options={STYLE_PRESETS} onChange={v => setEditing({...editing, style:v})} />
+            <Select label="畫風 *" value={editing.style||'圓潤可愛'} options={STYLE_PRESETS} onChange={v => setEditing({...editing, style:v})} />
           </div>
+          <p className="text-[11px] text-gray-400 mb-4">💡 其他欄位可選填，AI 會自動補齊未填的設定</p>
+
+          <button onClick={generatePrompt} disabled={aiLoading || !editing.name}
+            className="w-full bg-gradient-to-r from-coral-500 via-peach-500 to-coral-400 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-coral-200 hover:shadow-xl hover:scale-[1.01] disabled:opacity-40 transition-all mb-4">
+            {aiLoading ? '⏳ AI 正在生成 Prompt...' : '🤖 AI 自動生成角色 Prompt'}
+          </button>
+
+          <button type="button" onClick={() => setShowAdvanced(!showAdvanced)}
+            className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-coral-500 transition-colors mb-3">
+            <span className={`inline-block transition-transform ${showAdvanced ? 'rotate-180' : ''}`}>▼</span>
+            進階設定（外觀 / 個性）
+          </button>
+
+          {showAdvanced && (
+            <div className="animate-fadeIn">
+              <div className="h-px bg-coral-100 mb-3" />
+              <h4 className="text-xs font-bold text-coral-500 mb-2 uppercase tracking-wide">外觀設定</h4>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                <Field label="身體形狀" value={editing.body_shape||''} onChange={v => setEditing({...editing, body_shape:v})} placeholder="圓球形" />
+                <Field label="主色" value={editing.body_color||''} onChange={v => setEditing({...editing, body_color:v})} placeholder="#FFE4C4" />
+                <Field label="點綴色" value={editing.accent_color||''} onChange={v => setEditing({...editing, accent_color:v})} placeholder="#FF6B6B" />
+                <Field label="眼睛" value={editing.eye_style||''} onChange={v => setEditing({...editing, eye_style:v})} placeholder="小黑圓點" />
+                <Field label="嘴巴" value={editing.mouth_style||''} onChange={v => setEditing({...editing, mouth_style:v})} placeholder="ω形" />
+                <Field label="特殊特徵" value={editing.special_feature||''} onChange={v => setEditing({...editing, special_feature:v})} placeholder="頭上呆毛" />
+              </div>
+
+              <div className="h-px bg-coral-100 my-3" />
+              <h4 className="text-xs font-bold text-coral-500 mb-2 uppercase tracking-wide">個性</h4>
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <Field label="個性描述" value={editing.personality||''} onChange={v => setEditing({...editing, personality:v})} placeholder="愛吃、懶懶的" />
+                <Field label="口頭禪" value={editing.catchphrase||''} onChange={v => setEditing({...editing, catchphrase:v})} placeholder="哇嗚~" />
+              </div>
+            </div>
+          )}
 
           <div className="h-px bg-coral-100 my-4" />
-          <h4 className="text-xs font-bold text-coral-500 mb-2 uppercase tracking-wide">外觀設定</h4>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-            <Field label="身體形狀" value={editing.body_shape||''} onChange={v => setEditing({...editing, body_shape:v})} placeholder="圓球形" />
-            <Field label="主色" value={editing.body_color||''} onChange={v => setEditing({...editing, body_color:v})} placeholder="#FFE4C4" />
-            <Field label="點綴色" value={editing.accent_color||''} onChange={v => setEditing({...editing, accent_color:v})} placeholder="#FF6B6B" />
-            <Field label="眼睛" value={editing.eye_style||''} onChange={v => setEditing({...editing, eye_style:v})} placeholder="小黑圓點" />
-            <Field label="嘴巴" value={editing.mouth_style||''} onChange={v => setEditing({...editing, mouth_style:v})} placeholder="ω形" />
-            <Field label="特殊特徵" value={editing.special_feature||''} onChange={v => setEditing({...editing, special_feature:v})} placeholder="頭上呆毛" />
-          </div>
-
-          <div className="h-px bg-coral-100 my-4" />
-          <h4 className="text-xs font-bold text-coral-500 mb-2 uppercase tracking-wide">個性</h4>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <Field label="個性描述" value={editing.personality||''} onChange={v => setEditing({...editing, personality:v})} placeholder="愛吃、懶懶的" />
-            <Field label="口頭禪" value={editing.catchphrase||''} onChange={v => setEditing({...editing, catchphrase:v})} placeholder="哇嗚~" />
-          </div>
-
-          <div className="h-px bg-coral-100 my-4" />
-          <div className="flex justify-between items-center mb-2">
-            <h4 className="text-xs font-bold text-coral-500 uppercase tracking-wide">生成用 Prompt</h4>
-            <button onClick={generatePrompt} disabled={aiLoading || !editing.name}
-              className="border-2 border-coral-500 text-coral-500 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-coral-50 disabled:opacity-40 transition-all">
-              {aiLoading ? '⏳ 生成中...' : '🤖 AI 生成 Prompt'}
-            </button>
-          </div>
+          <h4 className="text-xs font-bold text-coral-500 mb-2 uppercase tracking-wide">生成用 Prompt</h4>
           <textarea value={editing.full_prompt||''} onChange={e => setEditing({...editing, full_prompt: e.target.value})}
             className="w-full border-2 border-coral-100 rounded-xl p-3 text-xs font-mono bg-coral-50/30 resize-y focus:border-coral-400 outline-none"
             rows={5} placeholder="用於圖片生成的完整英文角色描述..." />

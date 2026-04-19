@@ -24,7 +24,19 @@ export async function POST(req: NextRequest) {
     });
 
     const result = await response.json();
+
+    // Debug: log the full response
+    console.log('Claude API status:', response.status);
+    console.log('Claude API response:', JSON.stringify(result).slice(0, 500));
+
+    if (result.error) {
+      return NextResponse.json({ error: result.error.message || 'Claude API error', detail: result.error }, { status: 500 });
+    }
+
     const text = result.content?.[0]?.text || '';
+    if (!text) {
+      return NextResponse.json({ error: 'Empty response from Claude', debug: result }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true, result: text });
   } catch (error: any) {
