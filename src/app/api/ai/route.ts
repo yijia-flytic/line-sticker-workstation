@@ -8,6 +8,8 @@ export async function POST(req: NextRequest) {
     const { action, data } = await req.json();
 
     // Use Claude API for AI tasks
+    console.log('API key prefix:', (process.env.ANTHROPIC_API_KEY || 'MISSING').slice(0, 15));
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
